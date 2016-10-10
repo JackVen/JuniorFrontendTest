@@ -2,10 +2,32 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Hello!</title>
+    <title>Search</title>
 </head>
 <body>
+    
+<input type="text" id="user" value="Search Username...">        
+<button onclick="showCustomer()">Search</button>
 
-<h1>Hello!</h1>
+<p id="demo"></p>
+
+<script>
+function showCustomer() {
+  var str = document.getElementById("user").value;
+  var xmlhttp;
+  if (str == "") {
+    document.getElementById("demo").innerHTML = "";
+    return;
+  }
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xmlhttp.open("GET", "https://api.github.com/search/users?q=" + str, true);
+  xmlhttp.send();
+}
+</script>
 </body>
 </html>
